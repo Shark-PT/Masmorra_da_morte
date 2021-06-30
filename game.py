@@ -4,7 +4,7 @@ from collections import OrderedDict
         
 
 def play():
-    print("Escape from Cave Terror!")
+    print("Bem vindo a Masmorra da Morte!!")
     world.parse_world_dsl()
     player = Player()
     while player.is_alive() and not player.victory:
@@ -14,11 +14,11 @@ def play():
         if player.is_alive() and not player.victory:
             choose_action(room, player) 
         elif not player.is_alive():
-            print("Your journey has come to an early end!")   
+            print("A tua jornada chego ao fim")   
     
 def get_available_action(room, player):
     actions = OrderedDict()
-    print("Choose an action: ")
+    print("O que queres fazer: ")
     if player.inventory:
         action_adder(actions, 'i', player.print_inventory, "Print inventory")
         if isinstance(room, world.TraderTile):
