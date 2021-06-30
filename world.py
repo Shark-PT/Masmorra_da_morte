@@ -29,17 +29,17 @@ class EnemyTile(MapTile):
         r = random.random()
         if r < 0.50:
             self.enemy = enemies.GiantSpider()
-            self.alive_text = "A giant Spider jumps down from " \
-                "its web in front of you!"
-            self.dead_text = "The corpse of a dead spider " \
-                "rots on the ground."
+            self.alive_text = "Uma Aranha gigante salta a tua frente " \
+                "e lança a teia contra ti"
+            self.dead_text = "O corpo morto da aranha " \
+                "apodrece no chão."
         elif r < 0.80:
             self.enemy = enemies.Ogre()
-            self.alive_text = "An Ogre is blocking your path!"
-            self.dead_text = "A dead Ogre reminds you of your triumph"
+            self.alive_text = "Um Ogre está a bloquear o teu caminho!"
+            self.dead_text = "Um ogre morto no chão relembra-te do teu triunfo"
         elif r < 0.95:
             self.enemy = enemies.BatColony()
-            self.alive_text = "You hear a squeaking noise growing louder" \
+            self.alive_text = "Ouves uns barulhos ao longe" \
                 "... suddenly you are lost in a swarm of bats!"
             self.dead_text = "Dozens of bats are scattered on the ground."
         else:
@@ -151,7 +151,7 @@ class VictoryTile(MapTile):
         """
 
 world_dsl = """
-|EN|EN|VT|EN|EN|
+|EN|EN|VT|EN|EN|   
 |EN|  |  |  |EN|
 |EN|FG|EN|  |TT|
 |TT|  |ST|FG|EN|
