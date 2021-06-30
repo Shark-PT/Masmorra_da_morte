@@ -18,8 +18,9 @@ class MapTile:
 class StartTile(MapTile):
     def intro_text(self):
         return """
-        you find yourself in a cave with a flickering torch on the wall.
-        You can make out four paths, each equally as dark and foreboding.
+        Na tua frente tens uns portões ferruguentos que aparentam ter centenas de anos desde que foram abertos
+        que misterios, lendas, monstros e tesouros se escondem lá dentro
+        irás descobrir logo que abras os mesmos!!
         """
         
         

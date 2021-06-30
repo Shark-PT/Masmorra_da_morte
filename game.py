@@ -1,10 +1,19 @@
 from player import Player
 import world
 from collections import OrderedDict
+from colorama import init, Fore, Back, Style
+from termcolor import colored
         
 
 def play():
     print("Bem vindo a Masmorra da Morte!!")
+    print("\033[31m" + " Bem Vindo á MASMORRA DA MORTE")
+    #print('\033[39m')
+    print("")
+    print(colored("Como the chamas?", "red", "on_blue"))
+    nome = input(">")
+    
+    print("Bem vindo, ", nome)
     world.parse_world_dsl()
     player = Player()
     while player.is_alive() and not player.victory:
