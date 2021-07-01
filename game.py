@@ -27,7 +27,7 @@ def play():
     
 def get_available_action(room, player):
     actions = OrderedDict()
-    print("O que queres fazer: ")
+    print("\nO que queres fazer: ")
     if player.inventory:
         action_adder(actions, 'i', player.print_inventory, "Ver inventario")
         if isinstance(room, world.TraderTile):
