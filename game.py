@@ -23,7 +23,7 @@ def play():
         if player.is_alive() and not player.victory:
             choose_action(room, player) 
         elif not player.is_alive():
-            print("A tua jornada chegou ao fim")   
+            print("A tua jornada chegou ao fim prematuramente")   
     
 def get_available_action(room, player):
     actions = OrderedDict()
