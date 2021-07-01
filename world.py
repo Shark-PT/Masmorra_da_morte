@@ -160,7 +160,7 @@ class VictoryTile(MapTile):
 
 world_dsl = """
 |EN|EN|VT|EN|EN|
-|EN|  ||  |EN|
+|EN|  |  |  |EN|
 |EN|FG|EN|  |TT|
 |EN|CT|FG|CT|EN|
 |FG|  |ST|  |FG|
