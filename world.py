@@ -16,7 +16,13 @@ class MapTile:
     def modify_player(self, player):
         pass
     
+class CorredorTile(MapTile):
+    def intro_text(self):
+        return """
+        um corredor escuro encontra-se à tua frente.
+        Tens coragem de continuar"""
     
+        
 class StartTile(MapTile):
     def intro_text(self):
         return """
@@ -156,7 +162,7 @@ world_dsl = """
 |EN|EN|VT|EN|EN|
 |EN|  |  |  |EN|
 |EN|FG|EN|  |TT|
-|TT|  |TT|FG|EN|
+|EN|CT|FG|CT|EN|
 |FG|  |ST|  |FG|
 """
 def is_dsl_valid(dsl):
@@ -177,6 +183,7 @@ tile_type_dict = {"VT": VictoryTile,
                   "ST": StartTile,
                   "FG": FindGoldTile,
                   "TT": TraderTile,
+                  "CT": CorredorTile,
                   "  ": None}
             
 world_map = []
