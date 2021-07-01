@@ -40,14 +40,14 @@ class EnemyTile(MapTile):
         elif r < 0.95:
             self.enemy = enemies.BatColony()
             self.alive_text = "Ouves uns barulhos ao longe" \
-                "... suddenly you are lost in a swarm of bats!"
-            self.dead_text = "Dozens of bats are scattered on the ground."
+                "... até que de repente te vês no meio de um enxame de morcegos!"
+            self.dead_text = "Dezenas de morcegos estão espalhados no chão."
         else:
             self.enemy = enemies.RockMonster()
-            self.alive_text = "You've disturbed a rock monster " \
-                "from his slumber!"
-            self.dead_text = "Defeated, the monster has reverted " \
-                "into an ordinary rock."
+            self.alive_text = "Tu acordaste um monstro de pedra" \
+                "do seu covil!"
+            self.dead_text = "Derrotado, o monstro reverteu " \
+                "para uma rocha normal."
             
         super().__init__(x, y)
         
@@ -59,7 +59,7 @@ class EnemyTile(MapTile):
     def modify_player(self, player):
         if self.enemy.is_alive():
             player.hp = player.hp - self.enemy.damage 
-            print("Enemy does {} damage. You have {} HP remaining.".format(self.enemy.damage, player.hp))
+            print("O inimigo deu-te {} de dano. Tu tens {} HP restantes.".format(self.enemy.damage, player.hp))
         
             
 class TraderTile(MapTile):
@@ -69,9 +69,9 @@ class TraderTile(MapTile):
         
     def trade(self, buyer, seller):
         for i, item in enumerate(seller.inventory, 1):
-            print("{}. {} - {} Gold".format(i, item.name, item.value))
+            print("{}. {} - {} Ouro".format(i, item.name, item.value))
         while True:
-            user_input = input("Choose an item or press Q to exit.")
+            user_input = input("Escolhe um item ou pressiona Q para sair.")
             if user_input in ["Q", "q"]:
                 return
             else:
@@ -80,17 +80,17 @@ class TraderTile(MapTile):
                     to_swap = seller.inventory[choice - 1]
                     self.swap(seller, buyer, to_swap)
                 except ValueError:
-                    print("Invalid Choice!")
+                    print("Escolha invalida!")
                     
     def swap(self, seller, buyer, item):
         if item.value > buyer.gold:
-            print("That's too expensive")
+            print("Isso é muito caro")
             return
         seller.inventory.remove(item)
         buyer.inventory.append(item)
         seller.gold = seller.gold + item.value
         buyer.gold = buyer.gold - item.value
-        print("Trade complete!")
+        print("Troca completa!")
         
     def check_if_trade(self, player):
         while True:
