@@ -2,6 +2,8 @@ from collections import UserString
 import enemies
 import random
 import npc
+from colorama import init, Fore, Back, Style
+from termcolor import colored
 
 class MapTile:
     def __init__(self, x, y):
@@ -14,12 +16,19 @@ class MapTile:
     def modify_player(self, player):
         pass
     
+class CorredorTile(MapTile):
+    def intro_text(self):
+        return """
+        um corredor escuro encontra-se à tua frente.
+        Tens coragem de continuar"""
     
+        
 class StartTile(MapTile):
     def intro_text(self):
         return """
-        you find yourself in a cave with a flickering torch on the wall.
-        You can make out four paths, each equally as dark and foreboding.
+        Na tua frente tens uns portões ferruguentos que aparentam ter centenas de anos desde que foram abertos
+        que misterios, lendas, monstros e tesouros se escondem lá dentro
+        irás descobrir logo que abras os mesmos!!
         """
         
         
@@ -28,25 +37,25 @@ class EnemyTile(MapTile):
         r = random.random()
         if r < 0.50:
             self.enemy = enemies.GiantSpider()
-            self.alive_text = "A giant Spider jumps down from " \
-                "its web in front of you!"
-            self.dead_text = "The corpse of a dead spider " \
-                "rots on the ground."
+            self.alive_text = "\nUma Aranha gigante salta a tua frente " \
+                "e lança a teia contra ti"
+            self.dead_text = "\nO corpo morto da aranha " \
+                "apodrece no chão."
         elif r < 0.80:
             self.enemy = enemies.Ogre()
-            self.alive_text = "An Ogre is blocking your path!"
-            self.dead_text = "A dead Ogre reminds you of your triumph"
+            self.alive_text = "\nUm Ogre está a bloquear o teu caminho!"
+            self.dead_text = "\nUm ogre morto no chão relembra-te do teu triunfo"
         elif r < 0.95:
             self.enemy = enemies.BatColony()
-            self.alive_text = "You hear a squeaking noise growing louder" \
-                "... suddenly you are lost in a swarm of bats!"
-            self.dead_text = "Dozens of bats are scattered on the ground."
+            self.alive_text = "\nOuves uns barulhos ao longe" \
+                "... até que de repente te vês no meio de um enxame de morcegos!"
+            self.dead_text = "\nDezenas de morcegos estão espalhados no chão."
         else:
             self.enemy = enemies.RockMonster()
-            self.alive_text = "You've disturbed a rock monster " \
-                "from his slumber!"
-            self.dead_text = "Defeated, the monster has reverted " \
-                "into an ordinary rock."
+            self.alive_text = "\nTu acordaste um monstro de pedra" \
+                "do seu covil!"
+            self.dead_text = "\nDerrotado, o monstro reverteu " \
+                "para uma rocha normal."
             
         super().__init__(x, y)
         
@@ -58,7 +67,7 @@ class EnemyTile(MapTile):
     def modify_player(self, player):
         if self.enemy.is_alive():
             player.hp = player.hp - self.enemy.damage 
-            print("Enemy does {} damage. You have {} HP remaining.".format(self.enemy.damage, player.hp))
+            print("\nO inimigo deu-te {} de dano. Tu tens {} HP restantes.".format(self.enemy.damage, player.hp))
         
             
 class TraderTile(MapTile):
@@ -68,9 +77,9 @@ class TraderTile(MapTile):
         
     def trade(self, buyer, seller):
         for i, item in enumerate(seller.inventory, 1):
-            print("{}. {} - {} Gold".format(i, item.name, item.value))
+            print("{}. {} - {} Ouro".format(i, item.name, item.value))
         while True:
-            user_input = input("Choose an item or press Q to exit.")
+            user_input = input("Escolhe um item ou pressiona Q para sair.")
             if user_input in ["Q", "q"]:
                 return
             else:
@@ -79,37 +88,37 @@ class TraderTile(MapTile):
                     to_swap = seller.inventory[choice - 1]
                     self.swap(seller, buyer, to_swap)
                 except ValueError:
-                    print("Invalid Choice!")
+                    print("Escolha invalida!")
                     
     def swap(self, seller, buyer, item):
         if item.value > buyer.gold:
-            print("That's too expensive")
+            print("Isso é muito caro")
             return
         seller.inventory.remove(item)
         buyer.inventory.append(item)
         seller.gold = seller.gold + item.value
         buyer.gold = buyer.gold - item.value
-        print("Trade complete!")
+        print("Troca completa!")
         
     def check_if_trade(self, player):
         while True:
-            print("Would you like to (B)uy, (S)ell or (Q)uit?")
+            print("Queres Comprar (B), Vender(S) ou Sair(Q)?") 
             user_input = input()
             if user_input in ["Q", "q"]:
                 return
             elif user_input in ["B", "b"]:
-                print("Here's what available to buy: ")
-                self.trade(Buyer = player, seller=self.trader)
+                print("Isto é o que tenho disponivel: ") 
+                self.trade(buyer=player, seller=self.trader)
             elif user_input in ["S", "s"]:
-                print("Here's what available to sell: ")
-                self.trade(Buyer=self.trader, seller=player)
+                print("Isto é o que tenho disponivel:")
+                self.trade(buyer=self.trader, seller=player)
             else:
-                print("Invalid choice!")
+                print("Escolha invalida!")
     
     def intro_text(self):
         return """
-    A frail not-quite-human, not-quite-creature squats in the corner clinking
-    his gold together. He looks willing to trade.
+    uma fragil creatura, meio humana, meio bicho está sentada no canto 
+    a balançar o seu ouro. Ele parece que está disposto a fazer trocas.
     """
                     
 class FindGoldTile(MapTile):
@@ -122,18 +131,18 @@ class FindGoldTile(MapTile):
         if not self.gold_claimed:
             self.gold_claimed = True
             player.gold = player.gold + self.gold
-            print("+{} gold added.".format(self.gold))
+            print("recebeste mais {} moedas de ouro.".format(self.gold)) 
             
     def intro_text(self):
         if self.gold_claimed:
             return """
-        Another unremarkable part of the cave. You
-        must forge onwards.
+        Outra parte normal da masmorra. Tu
+        continuas a desbravar caminho
         """
         
         else:
             return"""
-        Someone dropped some gold. You pick it up.
+        Alguém deixou cair moedas de ouro. Apanhaste-as.
         """
       
 class VictoryTile(MapTile):
@@ -142,19 +151,19 @@ class VictoryTile(MapTile):
         
     def intro_text(self):
         return """
-        You see a bright light in the distance...
-        ... it grows as you get closer! It's sunlight!
+        Tu vês uma luz timida à distancia
+        ... Ela aumenta à medida que te aproximas! É a saida
     
     
-        Victory is yours!
+        Conseguiste sair da masmorra com vida!!!
         """
 
 world_dsl = """
 |EN|EN|VT|EN|EN|
-|EN|  |  |  |EN|
+|EN|  ||  |EN|
 |EN|FG|EN|  |TT|
-|TT|  |ST|FG|EN|
-|FG|  |EN|  |FG|
+|EN|CT|FG|CT|EN|
+|FG|  |ST|  |FG|
 """
 def is_dsl_valid(dsl):
     if dsl.count("|ST|") != 1:
@@ -174,6 +183,7 @@ tile_type_dict = {"VT": VictoryTile,
                   "ST": StartTile,
                   "FG": FindGoldTile,
                   "TT": TraderTile,
+                  "CT": CorredorTile,
                   "  ": None}
             
 world_map = []
