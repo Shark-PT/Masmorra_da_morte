@@ -37,24 +37,24 @@ class EnemyTile(MapTile):
         r = random.random()
         if r < 0.50:
             self.enemy = enemies.GiantSpider()
-            self.alive_text = "Uma Aranha gigante salta a tua frente " \
+            self.alive_text = "\nUma Aranha gigante salta a tua frente " \
                 "e lança a teia contra ti"
-            self.dead_text = "O corpo morto da aranha " \
+            self.dead_text = "\nO corpo morto da aranha " \
                 "apodrece no chão."
         elif r < 0.80:
             self.enemy = enemies.Ogre()
-            self.alive_text = "Um Ogre está a bloquear o teu caminho!"
-            self.dead_text = "Um ogre morto no chão relembra-te do teu triunfo"
+            self.alive_text = "\nUm Ogre está a bloquear o teu caminho!"
+            self.dead_text = "\nUm ogre morto no chão relembra-te do teu triunfo"
         elif r < 0.95:
             self.enemy = enemies.BatColony()
-            self.alive_text = "Ouves uns barulhos ao longe" \
+            self.alive_text = "\nOuves uns barulhos ao longe" \
                 "... até que de repente te vês no meio de um enxame de morcegos!"
-            self.dead_text = "Dezenas de morcegos estão espalhados no chão."
+            self.dead_text = "\nDezenas de morcegos estão espalhados no chão."
         else:
             self.enemy = enemies.RockMonster()
-            self.alive_text = "Tu acordaste um monstro de pedra" \
+            self.alive_text = "\nTu acordaste um monstro de pedra" \
                 "do seu covil!"
-            self.dead_text = "Derrotado, o monstro reverteu " \
+            self.dead_text = "\nDerrotado, o monstro reverteu " \
                 "para uma rocha normal."
             
         super().__init__(x, y)
@@ -67,7 +67,7 @@ class EnemyTile(MapTile):
     def modify_player(self, player):
         if self.enemy.is_alive():
             player.hp = player.hp - self.enemy.damage 
-            print("O inimigo deu-te {} de dano. Tu tens {} HP restantes.".format(self.enemy.damage, player.hp))
+            print("\nO inimigo deu-te {} de dano. Tu tens {} HP restantes.".format(self.enemy.damage, player.hp))
         
             
 class TraderTile(MapTile):
@@ -160,7 +160,7 @@ class VictoryTile(MapTile):
 
 world_dsl = """
 |EN|EN|VT|EN|EN|
-|EN|  |  |  |EN|
+|EN|  ||  |EN|
 |EN|FG|EN|  |TT|
 |EN|CT|FG|CT|EN|
 |FG|  |ST|  |FG|
