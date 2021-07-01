@@ -2,6 +2,8 @@ from collections import UserString
 import enemies
 import random
 import npc
+from colorama import init, Fore, Back, Style
+from termcolor import colored
 
 class MapTile:
     def __init__(self, x, y):
@@ -100,10 +102,10 @@ class TraderTile(MapTile):
                 return
             elif user_input in ["B", "b"]:
                 print("Isto é o que tenho disponivel: ") 
-                self.trade(Buyer = player, seller=self.trader)
+                self.trade(buyer=player, seller=self.trader)
             elif user_input in ["S", "s"]:
                 print("Isto é o que tenho disponivel:")
-                self.trade(Buyer=self.trader, seller=player)
+                self.trade(buyer=self.trader, seller=player)
             else:
                 print("Escolha invalida!")
     
@@ -154,8 +156,8 @@ world_dsl = """
 |EN|EN|VT|EN|EN|
 |EN|  |  |  |EN|
 |EN|FG|EN|  |TT|
-|TT|  |ST|FG|EN|
-|FG|  |EN|  |FG|
+|TT|  |TT|FG|EN|
+|FG|  |ST|  |FG|
 """
 def is_dsl_valid(dsl):
     if dsl.count("|ST|") != 1:

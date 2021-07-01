@@ -13,7 +13,7 @@ def play():
     print(colored("Como the chamas?", "red", "on_blue"))
     nome = input(">")
     
-    print("Bem vindo, ", nome)
+    print("Bem vindo,", nome)
     world.parse_world_dsl()
     player = Player()
     while player.is_alive() and not player.victory:
@@ -23,7 +23,7 @@ def play():
         if player.is_alive() and not player.victory:
             choose_action(room, player) 
         elif not player.is_alive():
-            print("A tua jornada chegou ao fim prematuramente")   
+            print("\nA tua jornada chegou ao fim prematuramente")   
     
 def get_available_action(room, player):
     actions = OrderedDict()
