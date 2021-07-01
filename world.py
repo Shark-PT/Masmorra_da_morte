@@ -94,23 +94,23 @@ class TraderTile(MapTile):
         
     def check_if_trade(self, player):
         while True:
-            print("Would you like to (B)uy, (S)ell or (Q)uit?")
+            print("Queres Comprar (B), Vender(S) ou Sair(Q)?") 
             user_input = input()
             if user_input in ["Q", "q"]:
                 return
             elif user_input in ["B", "b"]:
-                print("Here's what available to buy: ")
+                print("Isto é o que tenho disponivel: ") 
                 self.trade(Buyer = player, seller=self.trader)
             elif user_input in ["S", "s"]:
-                print("Here's what available to sell: ")
+                print("Isto é o que tenho disponivel:")
                 self.trade(Buyer=self.trader, seller=player)
             else:
-                print("Invalid choice!")
+                print("Escolha invalida!")
     
     def intro_text(self):
         return """
-    A frail not-quite-human, not-quite-creature squats in the corner clinking
-    his gold together. He looks willing to trade.
+    uma fragil creatura, meio humana, meio bicho está sentada no canto 
+    a balançar o seu ouro. Ele parece que está disposto a fazer trocas.
     """
                     
 class FindGoldTile(MapTile):
@@ -123,18 +123,18 @@ class FindGoldTile(MapTile):
         if not self.gold_claimed:
             self.gold_claimed = True
             player.gold = player.gold + self.gold
-            print("+{} gold added.".format(self.gold))
+            print("recebeste mais {} moedas de ouro.".format(self.gold)) 
             
     def intro_text(self):
         if self.gold_claimed:
             return """
-        Another unremarkable part of the cave. You
-        must forge onwards.
+        Outra parte normal da masmorra. Tu
+        continuas a desbravar caminho
         """
         
         else:
             return"""
-        Someone dropped some gold. You pick it up.
+        Alguém deixou cair moedas de ouro. Apanhaste-as.
         """
       
 class VictoryTile(MapTile):
@@ -143,11 +143,11 @@ class VictoryTile(MapTile):
         
     def intro_text(self):
         return """
-        You see a bright light in the distance...
-        ... it grows as you get closer! It's sunlight!
+        Tu vês uma luz timida à distancia
+        ... Ela aumenta à medida que te aproximas! É a saida
     
     
-        Victory is yours!
+        Conseguiste sair da masmorra com vida!!!
         """
 
 world_dsl = """
