@@ -36,19 +36,19 @@ class Player:
         self.move(dx = -1, dy = 0)
 
     def print_inventory(self):
-        print("Inventory:")
+        print("Inventario:")
         for item in self.inventory:
             print('* ' + str(item))
-        print("Gold: {}". format(self.gold))
+        print("Ouro: {}". format(self.gold))
             
     def heal(self):
         consumables = [item for item in self.inventory if isinstance(item, items.Consumable)]
         if not consumables:
-            print("You don't have aby item to heal you!")
+            print("Tu não tens nenhum item de cura!")
             return
         
         for i, item in enumerate(consumables, 1):
-            print("Choose an item to use to heal: ")
+            print("Escolhe um item para te curar: ")
             print("{}. {}".format(i, item))
             
         valid = False
@@ -58,10 +58,10 @@ class Player:
                 to_eat = consumables[int(choice) - 1]
                 self.hp = min(100, self.hp + to_eat.healing_value)
                 self.inventory.remove(to_eat)
-                print("Current HP: {}". format(self.hp))
+                print("Pontos de vida que tens: {}". format(self.hp))
                 valid = True
             except (ValueError, IndexError):
-                print("Invalid choice, try again.")
+                print("Escolha invalida. Tenta outra vez.")
 
 
     def most_powerful_weapon(self):
@@ -81,12 +81,12 @@ class Player:
         best_weapon = self.most_powerful_weapon()
         room = world.tile_at(self.x, self.y)
         enemy = room.enemy
-        print("You use {} against {}!".format(best_weapon.name, enemy.name))
+        print("Tu usas {} contra {}!".format(best_weapon.name, enemy.name))
         enemy.hp -= best_weapon.damage
         if not enemy.is_alive():
-            print("You killed {}!".format(enemy.name))
+            print("Mataste {}!".format(enemy.name))
         else:
-            print("{} HP is {}.".format(enemy.name, enemy.hp))
+            print("{} HP é {}.".format(enemy.name, enemy.hp))
             
     def trade(self):
         room = world.tile_at(self.x, self.y)
