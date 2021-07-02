@@ -63,8 +63,8 @@ class EnemyTile(MapTile):
         
         else:
             self.enemy = enemies.RockMonster()
-            self.alive_text = "\nTu acordaste um monstro de pedra" \
-                "do seu covil!"
+            self.alive_text = "\nTu acordaste um monstro de pedra " \
+                "no seu covil!"
             self.dead_text = "\nDerrotado, o monstro reverteu " \
                 "para uma rocha normal."
             
