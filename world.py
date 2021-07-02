@@ -162,7 +162,7 @@ world_dsl = """
 |EN|EN|VT|EN|EN|
 |EN|  |  |  |EN|
 |EN|FG|EN|  |TT|
-|EN|CT|FG|CT|EN|
+|EN|CT|TT|CT|EN|
 |FG|  |ST|  |FG|
 """
 def is_dsl_valid(dsl):
