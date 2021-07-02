@@ -44,3 +44,9 @@ class Goblin(Enemy):
         self.hp = 50
         self.damage = 10
         
+class Dragon(Enemy):
+    def __init__(self):
+        self.name = "Dragão"
+        self.hp = 100
+        self.damage = 100
+        

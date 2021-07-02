@@ -31,35 +31,47 @@ class StartTile(MapTile):
         irás descobrir logo que abras os mesmos!!
         """
         
-        
+class DragonTile(MapTile):
+    def __init__(self):
+        self.enemy = enemies.Dragon()
+        self.alive_text = """Encontras-te um dragão gigante. Apesar de todas as tuas tentativas
+        morres queimado pelo mesmo.
+        Foi uma boa viagem, mas acaba aqui."""
+                
 class EnemyTile(MapTile):
     def __init__(self, x, y):
         r = random.random()
-        if r < 0.40:
+        if r < 0.95:
             self.enemy = enemies.GiantSpider()
             self.alive_text = "\nUma Aranha gigante salta a tua frente " \
                 "e lança a teia contra ti"
             self.dead_text = "\nO corpo morto da aranha " \
                 "apodrece no chão."
-        elif r < 0.60:
+        elif r < 0.80:
             self.enemy = enemies.Ogre()
             self.alive_text = "\nUm Ogre está a bloquear o teu caminho!"
             self.dead_text = "\nUm ogre morto no chão relembra-te do teu triunfo"
-        elif r < 0.70:
+        elif r < 0.50:
             self.enemy = enemies.BatColony()
             self.alive_text = "\nOuves uns barulhos ao longe" \
                 "... até que de repente te vês no meio de um enxame de morcegos!"
             self.dead_text = "\nDezenas de morcegos estão espalhados no chão."
-        elif r < 0.80:
+        elif r < 0.35:
             self.enemy = enemies.Bear()
             self.alive_text = "\n Vês um enorme Urso Pardo" \
                 "de pé e com cara de quem te quer atacar"
             self.dead_text = "Ficas todo contente ao ver que o urso jaz inaminado no chão"
             
-        elif r < 0.85:
+        elif r < 0.30:
             self.enemy = enemies.Goblin()
             self.alive_text = "Um Goblin verde e verruguento armado com uma espada"
             self.dead_text = "matas o Goblin e vês o sangue verde a escorrer pelo chão"
+            
+        elif r <0.10:
+            self.enemy = enemies.Dragon()
+            self.alive_text = """Encontras-te um dragão gigante. Apesar de todas as tuas tentativas
+        morres queimado pelo mesmo.
+        Foi uma boa viagem, mas acaba aqui.""" 
         
         else:
             self.enemy = enemies.RockMonster()
@@ -178,7 +190,7 @@ world_dsl = """
 |  |FG|EN|FG|  |CT|EN|CT|  |
 |EN|  |CT|  |  |  |CT|CT|TT|
 |CT|FG|CT|CT|  |FG|CT|EN|CT|
-|EN|  |  |EN|CT|EN|CT|  |  |
+|EN|  |  |EN|EN|EN|CT|  |  |
 |  |  |  |  |ST|  |  |  |  |
 """
 def is_dsl_valid(dsl):
@@ -200,6 +212,7 @@ tile_type_dict = {"VT": VictoryTile,
                   "FG": FindGoldTile,
                   "TT": TraderTile,
                   "CT": CorredorTile,
+                  "DG": DragonTile,
                   "  ": None}
             
 world_map = []
