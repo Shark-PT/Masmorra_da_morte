@@ -23,7 +23,7 @@ class Ogre(Enemy):
 class BatColony(Enemy):
     def __init__(self):
         self.name = "Colonia de Morcegos"
-        self.hp = 100
+        self.hp = 30
         self.damage = 4
         
 class RockMonster(Enemy):
@@ -31,4 +31,16 @@ class RockMonster(Enemy):
         self.name = "Monstro de Pedra"
         self.hp = 80
         self.damage = 15
+        
+class Bear(Enemy):
+    def __init__(self):
+        self.name = "Urso"
+        self.hp = 50
+        self.damage = 12
+        
+class Goblin(Enemy):
+    def __init__(self):
+        self.name = "Goblin"
+        self.hp = 50
+        self.damage = 10
         
