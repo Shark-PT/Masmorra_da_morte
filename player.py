@@ -81,10 +81,10 @@ class Player:
         best_weapon = self.most_powerful_weapon()
         room = world.tile_at(self.x, self.y)
         enemy = room.enemy
-        print("Tu usas {} contra {}!".format(best_weapon.name, enemy.name))
+        print("\nTu usas {} contra {}!".format(best_weapon.name, enemy.name))
         enemy.hp -= best_weapon.damage
         if not enemy.is_alive():
-            print("Mataste {}!".format(enemy.name))
+            print("\nMataste {}!".format(enemy.name))
         else:
             print("{} HP é {}.".format(enemy.name, enemy.hp))
             

@@ -159,11 +159,16 @@ class VictoryTile(MapTile):
         """
 
 world_dsl = """
-|EN|EN|VT|EN|EN|
-|EN|  |  |  |EN|
-|EN|FG|EN|  |TT|
-|EN|CT|TT|CT|EN|
-|FG|  |ST|  |FG|
+|  |  |  |  |  |  |  |
+|  |  |  |  |  |  |  |
+|  |  |  |  |  |  |  |
+|  |  |  |  |  |  |  |
+|  |  |  |  |  |  |  |
+|  |  |CT|CT|CT|CT|CT|
+|  |  |CT|  |  |  |CT|
+|CT|CT|CT|CT|  |  |CT|
+|CT|  |  |CT|CT|CT|CT|
+|  |  |  |  |ST|  |  |
 """
 def is_dsl_valid(dsl):
     if dsl.count("|ST|") != 1:
