@@ -7,6 +7,6 @@ Irei traduzir o jogo para Português e personaliza-lo, com outro labirinto, mais
 
 Text Based Adventure game made in Python
 
-The game is made in English with the hel of the book "Make you python Adventure" by Phillip Johnson.
+The game is made in English with the help of the book "Make you python Adventure" by Phillip Johnson.
 
 I'm going to translate the game to Portuguese e costumize it with another world, more monsters, traps and items.
