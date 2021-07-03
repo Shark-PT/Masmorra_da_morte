@@ -3,7 +3,7 @@ import items
 
 class NonPlayableCharacter():
     def __init__(self):
-        raise NotImplementedError("Do not create raw NPC objects.")
+        raise NotImplementedError("Não cries objectos de NPC sem ser numa subclasse")
     
     def __str__(self):
         return self.name
@@ -19,4 +19,6 @@ class Trader(NonPlayableCharacter):
                           items.Apple(),
                           items.Apple(),
                           items.HealingPotion(),
-                          items.HealingPotion()]
+                          items.HealingPotion(),
+                          items.RustySword()]
+        

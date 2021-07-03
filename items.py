@@ -1,6 +1,6 @@
 class Weapon:
     def ___init__(self):
-        raise NotImplementedError("Do not create raw Weapon objects.")
+        raise NotImplementedError("Não cries objectos (armas)")
     
     def __str__(self):
         return self.name
@@ -31,7 +31,7 @@ class RustySword(Weapon):
         self.description = "Esta espada já mostra a idade, " \
                            "mas ainda dá luta."
         self.damage = 20
-        self.value = 100
+        self.value = 30
         
 class Consumable:
     def __init__(self):

@@ -1,6 +1,6 @@
 class Enemy:
     def __init__(self):
-        raise NotImplementedError("Do not create raw Enemy Objects.")
+        raise NotImplementedError("Não cries objectos de Inimigos sem ser numa subclasse")
     
     def __str__(self):
         return self.name
@@ -18,7 +18,7 @@ class Ogre(Enemy):
     def __init__(self):
         self.name = "Ogre"
         self.hp = 30
-        self.damage = 10
+        self.damage = 5
         
 class BatColony(Enemy):
     def __init__(self):

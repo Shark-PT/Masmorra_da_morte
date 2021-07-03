@@ -35,8 +35,12 @@ class Player:
     def move_west(self):
         self.move(dx = -1, dy = 0)
 
+    #def pick_item(self):
+    #    room = world.tile_at(self.x, self.y)
+    #    self.room.modify_player
+    
     def print_inventory(self):
-        print("Inventario:")
+        print("\nInventario:")
         for item in self.inventory:
             print('* ' + str(item))
         print("Ouro: {}". format(self.gold))
@@ -63,7 +67,7 @@ class Player:
             except (ValueError, IndexError):
                 print("Escolha invalida. Tenta outra vez.")
 
-
+    
     def most_powerful_weapon(self):
         max_damage = 0
         best_weapon = None

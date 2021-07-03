@@ -2,6 +2,7 @@ from collections import UserString
 import enemies
 import random
 import npc
+import items
 from colorama import init, Fore, Back, Style
 from termcolor import colored
 
@@ -11,7 +12,7 @@ class MapTile:
         self.y = y
         
     def intro_text(self):
-        raise NotImplementedError("Create a subclass instead!")
+        raise NotImplementedError("Cria uma subclass, em vez de outra classe")
     
     def modify_player(self, player):
         pass
@@ -92,6 +93,37 @@ class EnemyTile(MapTile):
             player.hp = player.hp - self.enemy.damage 
             print("\nO inimigo deu-te {} de dano. Tu tens {} HP restantes.".format(self.enemy.damage, player.hp))
         
+            
+class ItemTile(MapTile):
+    def __init__(self, x, y):
+        super().__init__(x,y)
+        r = random.random()
+        if r < 90:
+            self.item = items.CrustyBread()
+            self.description = """  \nEncontras-te um pão duro no chão"""
+        elif r < 80:
+            self.item = items.Apple()
+            self.description = """ \nOlhas para a sala e vês uma maçã"""
+        
+        elif r < 70:
+            self.item = items.HealingPotion()
+            self.description = """\nUma poção de vida, que maravilha"""
+            
+        elif r <50:
+            self.item = items.RustySword()
+            self.description = """\nEncontras-te uma espada, vai-te dar bastante jeito"""
+        else:
+            print("\nNão encontraste nada!!")
+            
+    def intro_text(self):
+        text = self.description 
+        return text
+ 
+ #   def modify_player(self, player):
+ #       if self.item():
+ #           player.inventory.append(self.item) 
+ #           print("\napanhaste {}".format .item)
+            
             
 class TraderTile(MapTile):
     def __init__(self, x, y):
@@ -188,10 +220,11 @@ world_dsl = """
 |  |  |  |CT|FG|EN|EN|  |  |
 |  |TT|  |FG|  |  |CT|  |  |
 |  |FG|EN|FG|  |CT|EN|CT|  |
-|EN|  |CT|  |  |  |CT|CT|TT|
-|CT|FG|CT|CT|  |FG|CT|EN|CT|
-|EN|  |  |EN|EN|EN|CT|  |  |
-|  |  |  |  |ST|  |  |  |  |
+|  |  |  |  |  |  |  |  |  |
+|EN|  |CT|  |  |  |  |CT|TT|
+|CT|FG|CT|CT|  |  |CT|EN|CT|
+|EN|  |  |EN|IT|EN|CT|  |FG|
+|  |  |  |  |ST|  |FG|  |  |
 """
 def is_dsl_valid(dsl):
     if dsl.count("|ST|") != 1:
@@ -213,6 +246,7 @@ tile_type_dict = {"VT": VictoryTile,
                   "TT": TraderTile,
                   "CT": CorredorTile,
                   "DG": DragonTile,
+                  "IT": ItemTile,
                   "  ": None}
             
 world_map = []
