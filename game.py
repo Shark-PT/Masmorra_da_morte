@@ -34,6 +34,7 @@ def get_available_action(room, player):
             action_adder(actions, "t", player.trade, "Trocar")
     if isinstance(room, world.EnemyTile) and room.enemy.is_alive():
         action_adder(actions, 'a', player.attack, "Atacar")
+    
     else:
         if world.tile_at(room.x, room.y -1):
             action_adder(actions, "n", player.move_north, "ir para norte")

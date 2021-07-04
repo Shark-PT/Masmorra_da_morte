@@ -98,10 +98,10 @@ class ItemTile(MapTile):
     def __init__(self, x, y):
         super().__init__(x,y)
         r = random.random()
-        if r < 90:
-            self.item = items.CrustyBread()
-            self.description = """  \nEncontras-te um pão duro no chão"""
-        elif r < 80:
+        #if r < 79:
+        #    self.item = items.CrustyBread()
+        #    self.description = """  \nEncontras-te um pão duro no chão"""
+        if r < 80:
             self.item = items.Apple()
             self.description = """ \nOlhas para a sala e vês uma maçã"""
         
@@ -109,7 +109,7 @@ class ItemTile(MapTile):
             self.item = items.HealingPotion()
             self.description = """\nUma poção de vida, que maravilha"""
             
-        elif r <50:
+        elif r <65:
             self.item = items.RustySword()
             self.description = """\nEncontras-te uma espada, vai-te dar bastante jeito"""
         else:
@@ -220,8 +220,8 @@ world_dsl = """
 |  |  |  |CT|FG|EN|EN|  |  |
 |  |TT|  |FG|  |  |CT|  |  |
 |  |FG|EN|FG|  |CT|EN|CT|  |
-|  |  |  |  |  |  |  |  |  |
-|EN|  |CT|  |  |  |  |CT|TT|
+|  |  |FG|  |  |  |  |FG|  |
+|EN|  |EN|  |  |  |  |CT|TT|
 |CT|FG|CT|CT|  |  |CT|EN|CT|
 |EN|  |  |EN|IT|EN|CT|  |FG|
 |  |  |  |  |ST|  |FG|  |  |
