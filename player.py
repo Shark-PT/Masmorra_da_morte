@@ -18,40 +18,49 @@ class Player:
         
     def is_alive(self):
         return self.hp > 0
-        
+    # Funções de movimento
+    #Função geral    
     def move(self, dx, dy):
         self.x += dx
         self.y += dy
-        
-    def move_north(self):
-        self.move(dx = 0, dy = -1)
-        
-    def move_south(self):
-        self.move(dx = 0, dy = 1)
-        
-    def move_east(self):
-        self.move(dx = 1, dy = 0)
-        
-    def move_west(self):
-        self.move(dx = -1, dy = 0)
-
-    #def pick_item(self):
-    #    room = world.tile_at(self.x, self.y)
-    #    self.room.modify_player
     
+    #Movimentos Verticais
+    
+    #Movimento norte    
+    def move_north(self):
+        self.move(dx = 0, dy = -1) #Não move na horizontal, sobe uma posição na vertical
+        
+    #Movimento Sul
+    def move_south(self):
+        self.move(dx = 0, dy = 1) #Não move na horizontal, desce uma posição na vertical
+        
+    #Movimentos Horizontais
+    
+    #Movimento Este
+    def move_east(self):
+        self.move(dx = 1, dy = 0) #Move uma posição na horizontal para a direita, não mexe na vertical
+        
+    #Movimento Oeste
+    def move_west(self):
+        self.move(dx = -1, dy = 0) #Move uma posição na horizontal para a esquerda, não mexe na vertical
+
+    
+    #Função de Inventario
     def print_inventory(self):
         print("\nInventario:")
         for item in self.inventory:
-            print('* ' + str(item))
-        print("Ouro: {}". format(self.gold))
+            print('* ' + str(item)) #Mostra os items que estão na lista inventory (Inventario)
+        print("Ouro: {}". format(self.gold)) #mostra o Ouro que está no inventario
             
+    
+    #Função Cura
     def heal(self):
-        consumables = [item for item in self.inventory if isinstance(item, items.Consumable)]
+        consumables = [item for item in self.inventory if isinstance(item, items.Consumable)] #Verifica se tens items de cura no teu inventario
         if not consumables:
-            print("Tu não tens nenhum item de cura!")
+            print("Tu não tens nenhum item de cura!")   #Explicativo, não tens items, logo é isso que é impresso no ecrâ               
             return
         
-        for i, item in enumerate(consumables, 1):
+        for i, item in enumerate(consumables, 1): 
             print("Escolhe um item para te curar: ")
             print("{}. {}".format(i, item))
             

@@ -285,11 +285,13 @@ def parse_world_dsl():
         #Add the whole row to the world_map
         world_map.append(row)
 
+#Função que localiza a sala nas coordenadas
+#Sem esta função, o jogo teria que confirmar as coordenadas em cada movimento
 def tile_at(x, y):
-    if x < 0 or y < 0:
-        return None
+    if x < 0 or y < 0:         #Se alguma coordenada for negativa, a função não retorna nada. 
+        return None            
     try:
-        return world_map[y][x]
-    except IndexError:
+        return world_map[y][x] #Se as coordenadas forem validas, retorna a sala que está atribuida à mesma
+    except IndexError:         #Se as coordenadas forem maiores que os valores do world_dsl, a função não retorna nada
         return None  
     
