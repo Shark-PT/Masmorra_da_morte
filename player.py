@@ -13,7 +13,7 @@ class Player:
         self.x = world.start_tile_location[0]
         self.y = world.start_tile_location[1]
         self.hp = 100
-        self.gold = 5
+        self.gold = 50
         self.victory = False
         
     def is_alive(self):
@@ -55,13 +55,13 @@ class Player:
     
     #Função Cura
     def heal(self):
-        consumables = [item for item in self.inventory if isinstance(item, items.Consumable)] #Verifica se tens items de cura no teu inventario
+        consumables = [item for item in self.inventory if isinstance(item, items.Consumable)] #Verifica se tens items de cura, da class consumables no teu inventario
         if not consumables:
             print("Tu não tens nenhum item de cura!")   #Explicativo, não tens items, logo é isso que é impresso no ecrâ               
             return
         
         for i, item in enumerate(consumables, 1): 
-            print("Escolhe um item para te curar: ")
+            print("Escolhe um item para te curar: ")  #Este for loop vai imprimir os items de curas que são da class consumables
             print("{}. {}".format(i, item))
             
         valid = False

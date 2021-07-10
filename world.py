@@ -22,6 +22,12 @@ class CorredorTile(MapTile):
         return """
         um corredor escuro encontra-se à tua frente.
         Tens coragem de continuar"""
+        
+class HallTile(MapTile):
+    def intro_text(self):
+        return """
+        um hall enorme está à tua frente e tu perguntas-te quem terá sido
+        o arquitecto, visto que está todo destruido."""
     
         
 class StartTile(MapTile):
@@ -98,10 +104,15 @@ class ItemTile(MapTile):
     def __init__(self, x, y):
         super().__init__(x,y)
         r = random.randint(1,10)
+        
+        def modify_player(self, player):
+            self.inventory.append(items)
+            print("apanhaste {}".format(self.item)) 
+            
         if r < 5:
             self.item = items.CrustyBread()
             self.description = """  \nEncontras-te um pão duro no chão"""
-        if r < 7:
+        if r < 6:
             self.item = items.Apple()
             self.description = """ \nOlhas para a sala e vês uma maçã"""
         
@@ -119,10 +130,7 @@ class ItemTile(MapTile):
         text = self.description 
         return text
  
- #   def modify_player(self, player):
- #       if self.item():
- #           player.inventory.append(self.item) 
- #           print("\napanhaste {}".format .item)
+
             
             
 class TraderTile(MapTile):
@@ -200,6 +208,16 @@ class FindGoldTile(MapTile):
         Alguém deixou cair moedas de ouro. Apanhaste-as.
         """
       
+class LoseTile(MapTile):
+    def modify_player(self,Player):
+        player.victory = False
+        
+    def intro_text(self):
+        return """
+        Caiste num buraco sem fundo.
+        ...A serio, um buraco numa masmorra?!?
+        rogas pragas a quem contruiu esta masmorra durante a longa queda para um fim inglorio"""
+    
 class VictoryTile(MapTile):
     def modify_player(self, player):
         player.victory = True
@@ -214,17 +232,17 @@ class VictoryTile(MapTile):
         """
 
 world_dsl = """
-|  |  |VT|  |  |  |  |  |  |
-|  |  |TT|CT|EN|  |TT|  |  |
-|  |  |  |  |CT|  |CT|  |  |
-|  |  |  |CT|FG|EN|EN|  |  |
-|  |TT|  |FG|  |  |CT|  |  |
-|  |FG|EN|FG|  |CT|EN|CT|  |
-|  |  |FG|  |  |  |  |FG|  |
-|EN|  |EN|  |  |  |  |CT|TT|
-|CT|FG|CT|CT|  |  |CT|EN|CT|
-|EN|  |  |EN|IT|EN|CT|  |FG|
-|  |  |  |  |ST|  |FG|  |  |
+|  |  |LT|  |  |  |  |  |  |  |
+|  |  |TT|CT|EN|  |TT|  |  |  |
+|  |  |  |  |CT|  |CT|  |  |  |
+|  |EN|  |CT|FG|EN|HT|CT|EN|VT|
+|  |TT|  |FG|  |  |CT|  |  |  |
+|  |FG|EN|FG|HT|CT|EN|CT|  |  |
+|  |  |FG|  |FG|  |  |FG|  |  |
+|EN|  |EN|  |  |  |  |CT|TT|  |
+|CT|FG|CT|CT|  |  |CT|EN|CT|  |
+|EN|  |  |EN|IT|EN|CT|  |FG|  |
+|  |  |  |  |ST|  |FG|  |  |  |
 """
 def is_dsl_valid(dsl):
     if dsl.count("|ST|") != 1:
@@ -247,6 +265,8 @@ tile_type_dict = {"VT": VictoryTile,
                   "CT": CorredorTile,
                   "DG": DragonTile,
                   "IT": ItemTile,
+                  "HT": HallTile,
+                  "LT": LoseTile,
                   "  ": None}
             
 world_map = []
