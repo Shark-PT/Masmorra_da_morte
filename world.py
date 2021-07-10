@@ -38,13 +38,6 @@ class StartTile(MapTile):
         Irás descobrir logo que abras os mesmos!!
         """
         
-class DragonTile(MapTile):
-    def __init__(self):
-        self.enemy = enemies.Dragon()
-        self.alive_text = """Encontras-te um dragão gigante. Apesar de todas as tuas tentativas
-        morres queimado pelo mesmo.
-        Foi uma boa viagem, mas acaba aqui."""
-                
 class EnemyTile(MapTile):
     def __init__(self, x, y):
         r = random.randint(1,10)
@@ -52,27 +45,27 @@ class EnemyTile(MapTile):
             self.enemy = enemies.GiantSpider()
             self.alive_text = "\nUma Aranha gigante salta a tua frente " \
                 "e lança a teia contra ti"
-            self.dead_text = "\nO corpo morto da aranha " \
+            self.dead_text = "\n\033[31mO corpo morto da aranha " \
                 "apodrece no chão."
         elif r < 8:
             self.enemy = enemies.Ogre()
             self.alive_text = "\nUm Ogre está a bloquear o teu caminho!"
-            self.dead_text = "\nUm ogre morto no chão relembra-te do teu triunfo"
+            self.dead_text = "\n\033[31mUm ogre morto no chão relembra-te do teu triunfo"
         elif r < 6:
             self.enemy = enemies.BatColony()
             self.alive_text = "\nOuves uns barulhos ao longe" \
                 "... até que de repente te vês no meio de um enxame de morcegos!"
-            self.dead_text = "\nDezenas de morcegos estão espalhados no chão."
+            self.dead_text = "\n\033[31mDezenas de morcegos estão espalhados no chão."
         elif r < 3:
             self.enemy = enemies.Bear()
             self.alive_text = "\n Vês um enorme Urso Pardo" \
                 "de pé e com cara de quem te quer atacar"
-            self.dead_text = "Ficas todo contente ao ver que o urso jaz inaminado no chão"
+            self.dead_text = "\033[31mFicas todo contente ao ver que o urso jaz inaminado no chão"
             
         elif r < 2 :           
             self.enemy = enemies.Goblin()
             self.alive_text = "Um Goblin verde e verruguento armado com uma espada"
-            self.dead_text = "matas o Goblin e vês o sangue verde a escorrer pelo chão"
+            self.dead_text = "\033[31mmatas o Goblin e vês o sangue verde a escorrer pelo chão"
             
         elif r < 1:
             self.enemy = enemies.RockMonster()
@@ -83,9 +76,9 @@ class EnemyTile(MapTile):
                     
         else:
             self.enemy = enemies.Dragon()
-            self.alive_text = """Encontras-te um dragão gigante. Apesar de todas as tuas tentativas
+            self.alive_text = """\033[31mEncontras-te um dragão gigante. Apesar de todas as tuas tentativas
         morres queimado pelo mesmo.
-        Foi uma boa viagem, mas acaba aqui.""" 
+        Foi uma boa viagem, mas acaba aqui.\033[39m""" 
             
         super().__init__(x, y)
         
@@ -209,14 +202,24 @@ class FindGoldTile(MapTile):
         """
       
 class LoseTile(MapTile):
-    def modify_player(self,Player):
-        player.victory = False
+    def modify_player(self,player):
+        player.hp = 0
         
     def intro_text(self):
-        return """
+        return """\033[31m
         Caiste num buraco sem fundo.
         ...A serio, um buraco numa masmorra?!?
-        rogas pragas a quem contruiu esta masmorra durante a longa queda para um fim inglorio"""
+        rogas pragas a quem contruiu esta masmorra durante a longa queda para um fim inglorio '\033[39m'"""
+
+class DragonTile(MapTile):
+    def intro_text(self):
+        return """\033[31;43mEncontras-te um dragão gigante. Apesar de todas as tuas tentativas
+        morres queimado pelo mesmo.
+        Foi uma boa viagem, mas acaba aqui.\033[0;37;40m""" 
+    def modify_player(self, player):
+        player.hp = 0
+
+
     
 class VictoryTile(MapTile):
     def modify_player(self, player):
@@ -232,17 +235,18 @@ class VictoryTile(MapTile):
         """
 
 world_dsl = """
-|  |  |LT|  |  |  |  |  |  |  |
-|  |  |TT|CT|EN|  |TT|  |  |  |
-|  |  |  |  |CT|  |CT|  |  |  |
-|  |EN|  |CT|FG|EN|HT|CT|EN|VT|
-|  |TT|  |FG|  |  |CT|  |  |  |
-|  |FG|EN|FG|HT|CT|EN|CT|  |  |
-|  |  |FG|  |FG|  |  |FG|  |  |
-|EN|  |EN|  |  |  |  |CT|TT|  |
-|CT|FG|CT|CT|  |  |CT|EN|CT|  |
-|EN|  |  |EN|IT|EN|CT|  |FG|  |
-|  |  |  |  |ST|  |FG|  |  |  |
+|  |  |LT|  |  |  |  |  |  |  |  |
+|  |  |TT|CT|EN|  |TT|  |  |  |  |
+|  |  |  |  |CT|  |CT|  |  |  |FG|
+|  |EN|  |CT|FG|EN|HT|CT|EN|HT|EN|
+|  |TT|  |FG|  |  |CT|  |  |  |TT|
+|  |FG|EN|FG|HT|CT|EN|CT|  |  |CT|
+|  |  |FG|  |FG|  |  |FG|  |  |VT|
+|EN|  |EN|  |  |  |  |CT|TT|  |  |
+|CT|FG|CT|CT|  |  |CT|EN|CT|  |  |
+|EN|  |  |EN|LT|EN|CT|  |FG|  |  |
+|  |  |  |  |DG|  |FG|  |  |  |  |
+|  |  |  |  |ST|  |  |  |  |  |  |
 """
 def is_dsl_valid(dsl):
     if dsl.count("|ST|") != 1:
