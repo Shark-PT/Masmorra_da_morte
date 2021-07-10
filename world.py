@@ -228,7 +228,7 @@ class VictoryTile(MapTile):
         ... Ela aumenta à medida que te aproximas! É a saida
     
     
-        Conseguiste sair da masmorra com vida!!!
+        Conseguiste sair da masmorra com vida, mais experiente e os bolsos mais cheios!!!
         """
 
 world_dsl = """
