@@ -131,10 +131,10 @@ class ItemTile(MapTile):
     def modify_player(self, player):
         if not self.item_claimed:
             self.item_claimed = True
-            try:
+            if self.item != None:
                 player.inventory.append(self.item)
                 print("apanhaste {}".format(self.item)) 
-            except:
+            else:
                 print("Fica para a proxima")
 class TraderTile(MapTile):
     def __init__(self, x, y):
