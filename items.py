@@ -13,8 +13,6 @@ class Rock(Weapon):
         self.damage = 5
         self.value = 1
         
-    
-    
 class Dagger(Weapon):
     def __init__(self):
         self.name="Adaga"
@@ -22,8 +20,6 @@ class Dagger(Weapon):
                            "ligeiramente mais perigosa que uma pedra." 
         self.damage = 10
         self.value = 20
-        
-   
 
 class RustySword(Weapon):
     def __init__(self):
@@ -32,7 +28,15 @@ class RustySword(Weapon):
                            "mas ainda dá luta."
         self.damage = 20
         self.value = 30
-        
+
+class Axe(Weapon):
+    def __init__(self):
+        self.name = "Machado"
+        self.description = "Um machado usado, " \
+                           "Quantas arvores já terá cortado e quantos inimigos matado?"
+        self.damage = 25
+        self.value = 40                   
+                           
 class Consumable:
     def __init__(self):
         raise NotImplementedError("Do not create raw Consumable objects.")

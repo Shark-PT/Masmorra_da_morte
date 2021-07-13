@@ -46,16 +46,16 @@ class EnemyTile(MapTile):
             self.alive_text = "\nUma Aranha gigante salta a tua frente " \
                 "e lança a teia contra ti"
             self.dead_text = "\n\033[31mO corpo morto da aranha " \
-                "apodrece no chão."
+                "apodrece no chão.\033[39m"
         elif r < 8:
             self.enemy = enemies.Ogre()
             self.alive_text = "\nUm Ogre está a bloquear o teu caminho!"
-            self.dead_text = "\n\033[31mUm ogre morto no chão relembra-te do teu triunfo"
+            self.dead_text = "\n\033[31mUm ogre morto no chão relembra-te do teu triunfo\033[39m"
         elif r < 6:
             self.enemy = enemies.BatColony()
             self.alive_text = "\nOuves uns barulhos ao longe" \
                 "... até que de repente te vês no meio de um enxame de morcegos!"
-            self.dead_text = "\n\033[31mDezenas de morcegos estão espalhados no chão."
+            self.dead_text = "\n\033[31mDezenas de morcegos estão espalhados no chão.\033[39m"
         elif r < 3:
             self.enemy = enemies.Bear()
             self.alive_text = "\n Vês um enorme Urso Pardo" \
@@ -65,7 +65,7 @@ class EnemyTile(MapTile):
         elif r < 2 :           
             self.enemy = enemies.Goblin()
             self.alive_text = "Um Goblin verde e verruguento armado com uma espada"
-            self.dead_text = "\033[31mmatas o Goblin e vês o sangue verde a escorrer pelo chão"
+            self.dead_text = "\033[31mmatas o Goblin e vês o sangue verde a escorrer pelo chão\033[39m"
             
         elif r < 1:
             self.enemy = enemies.RockMonster()
@@ -95,36 +95,44 @@ class EnemyTile(MapTile):
             
 class ItemTile(MapTile):
     def __init__(self, x, y):
+        self.item_claimed = False
         super().__init__(x,y)
         r = random.randint(1,10)
         
-        def modify_player(self, player):
-            self.inventory.append(items)
-            print("apanhaste {}".format(self.item)) 
+        
             
-        if r < 5:
+        if r < 8:
             self.item = items.CrustyBread()
             self.description = """  \nEncontras-te um pão duro no chão"""
         if r < 6:
             self.item = items.Apple()
             self.description = """ \nOlhas para a sala e vês uma maçã"""
         
-        elif r < 3:
+        elif r < 5:
             self.item = items.HealingPotion()
             self.description = """\nUma poção de vida, que maravilha"""
             
-        elif r <8:
+        elif r <3:
             self.item = items.RustySword()
             self.description = """\nEncontras-te uma espada, vai-te dar bastante jeito"""
-        else:
-             self.description = """\nNão encontraste nada!!"""
+        elif r < 2:
+            self.item = items.Axe()
+            self.description = "\nUm machado perdido, espectaculo!!"
+        #else:
+        #     self.description = """\nNão encontraste nada!!"""
             
     def intro_text(self):
+        if self.item_claimed:
+            return """
+                    Já apanhaste o item, não sejas ganante"""
         text = self.description 
         return text
- 
-
-            
+    
+    def modify_player(self, player):
+        if not self.item_claimed:
+            self.item_claimed = True
+            player.inventory.append(items)
+            print("apanhaste {}".format(self.item)) 
             
 class TraderTile(MapTile):
     def __init__(self, x, y):
@@ -240,12 +248,12 @@ world_dsl = """
 |  |  |  |  |CT|  |CT|  |  |  |FG|
 |  |EN|  |CT|FG|EN|HT|CT|EN|HT|EN|
 |  |TT|  |FG|  |  |CT|  |  |  |TT|
-|  |FG|EN|FG|HT|CT|EN|CT|  |  |CT|
+|  |FG|EN|FG|HT|CT|EN|CT|  |  |EN|
 |  |  |FG|  |FG|  |  |FG|  |  |VT|
 |EN|  |EN|  |  |  |  |CT|TT|  |  |
 |CT|FG|CT|CT|  |  |CT|EN|CT|  |  |
-|EN|  |  |EN|LT|EN|CT|  |FG|  |  |
-|  |  |  |  |DG|  |FG|  |  |  |  |
+|EN|  |  |EN|EN|CT|CT|  |FG|  |  |
+|LT|  |  |  |IT|  |FG|  |  |  |  |
 |  |  |  |  |ST|  |  |  |  |  |  |
 """
 def is_dsl_valid(dsl):
