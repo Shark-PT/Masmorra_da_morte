@@ -67,18 +67,18 @@ class EnemyTile(MapTile):
             self.alive_text = "Um Goblin verde e verruguento armado com uma espada"
             self.dead_text = "\033[31mmatas o Goblin e vês o sangue verde a escorrer pelo chão\033[39m"
             
-        elif r < 1:
+        else :
             self.enemy = enemies.RockMonster()
             self.alive_text = "\nTu acordaste um monstro de pedra " \
                 "no seu covil!"
             self.dead_text = "\nDerrotado, o monstro reverteu " \
                 "para uma rocha normal."
                     
-        else:
-            self.enemy = enemies.Dragon()
-            self.alive_text = """\033[31mEncontras-te um dragão gigante. Apesar de todas as tuas tentativas
-        morres queimado pelo mesmo.
-        Foi uma boa viagem, mas acaba aqui.\033[39m""" 
+        #else:
+        #    self.enemy = enemies.Dragon()
+        #    self.alive_text = """\033[31mEncontras-te um dragão gigante. Apesar de todas as tuas tentativas
+        #morres queimado pelo mesmo.
+        #Foi uma boa viagem, mas acaba aqui.\033[39m""" 
             
         super().__init__(x, y)
         
@@ -118,8 +118,8 @@ class ItemTile(MapTile):
         elif r < 2:
             self.item = items.Axe()
             self.description = "\nUm machado perdido, espectaculo!!"
-        #else:
-        #     self.description = """\nNão encontraste nada!!"""
+        else:
+             self.description = """\nNão encontraste nada!!"""
             
     def intro_text(self):
         if self.item_claimed:
@@ -131,9 +131,11 @@ class ItemTile(MapTile):
     def modify_player(self, player):
         if not self.item_claimed:
             self.item_claimed = True
-            player.inventory.append(items)
-            print("apanhaste {}".format(self.item)) 
-            
+            try:
+                player.inventory.append(self.item)
+                print("apanhaste {}".format(self.item)) 
+            except:
+                print("Fica para a proxima")
 class TraderTile(MapTile):
     def __init__(self, x, y):
         self.trader = npc.Trader()

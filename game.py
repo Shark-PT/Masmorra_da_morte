@@ -8,7 +8,7 @@ from termcolor import colored
 def play():
     print("Bem vindo a Masmorra da Morte!!")
     print("\033[31m" + " Bem Vindo á MASMORRA DA MORTE")
-    #print('\033[39m')
+    print('\033[39m')
     print("")
     print(colored("Como the chamas?", "red", "on_blue"))
     nome = input(">")
@@ -43,7 +43,7 @@ def get_available_action(room, player):
         if world.tile_at(room.x +1, room.y):
             action_adder(actions, "e", player.move_east, "ir para este")
         if world.tile_at(room.x -1, room.y):
-            action_adder(actions, "w", player.move_west, "ir para oeste")
+            action_adder(actions, "o", player.move_west, "ir para oeste")
     if player.hp <100:
         action_adder(actions, "h", player.heal, "curar")
         
