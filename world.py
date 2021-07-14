@@ -20,20 +20,34 @@ class MapTile:
 class CorredorTile(MapTile):
     def intro_text(self):
         return """
-        um corredor escuro encontra-se à tua frente.
-        Tens coragem de continuar"""
+        \num corredor escuro encontra-se à tua frente.
+        Tens coragem de continuar?"""
         
 class HallTile(MapTile):
     def intro_text(self):
         return """
-        um hall enorme está à tua frente e tu perguntas-te quem terá sido
-        o arquitecto, visto que está todo destruido."""
+        \num hall enorme está à tua frente com caminhos em frente e para a direita e a esquerda.
+        A serio, um cruzamento para confundir ainda mais???
+        Só te apetece esganar quem criou esta masmorra"""
+        
+class CruzamentoDrtFrenteTile(MapTile):
+    def intro_text(self):
+        return """
+        \nOlhas à volta e vês dois caminhos.
+        Um para norte e outro para Oeste"""
+        
+class CruzamentoEsqFrenteTile(MapTile):
+    def intro_text(self):
+        return """
+        \nE para não destoar, mais um cruzamento.
+        Agora é para Norte e Este"""
+        
     
         
 class StartTile(MapTile):
     def intro_text(self):
         return """
-        Na tua frente tens uns portões ferruguentos que aparentam ter centenas de anos desde que foram abertos
+        \nNa tua frente tens uns portões ferruguentos que aparentam ter centenas de anos desde que foram abertos
         que misterios, lendas, monstros e tesouros se escondem lá dentro!!!
         Irás descobrir logo que abras os mesmos!!
         """
@@ -60,12 +74,12 @@ class EnemyTile(MapTile):
             self.enemy = enemies.Bear()
             self.alive_text = "\n Vês um enorme Urso Pardo" \
                 "de pé e com cara de quem te quer atacar"
-            self.dead_text = "\033[31mFicas todo contente ao ver que o urso jaz inaminado no chão"
+            self.dead_text = "\n\033[31mFicas todo contente ao ver que o urso jaz inaminado no chão"
             
         elif r < 2 :           
             self.enemy = enemies.Goblin()
-            self.alive_text = "Um Goblin verde e verruguento armado com uma espada"
-            self.dead_text = "\033[31mmatas o Goblin e vês o sangue verde a escorrer pelo chão\033[39m"
+            self.alive_text = "\nUm Goblin verde e verruguento armado com uma espada"
+            self.dead_text = "\n\033[31mmatas o Goblin e vês o sangue verde a escorrer pelo chão\033[39m"
             
         else :
             self.enemy = enemies.RockMonster()
@@ -96,26 +110,27 @@ class EnemyTile(MapTile):
 class ItemTile(MapTile):
     def __init__(self, x, y):
         self.item_claimed = False
+        self.item = None
         super().__init__(x,y)
         r = random.randint(1,10)
         
         
             
-        if r < 8:
+        if r > 8:
             self.item = items.CrustyBread()
             self.description = """  \nEncontras-te um pão duro no chão"""
-        if r < 6:
+        elif r > 6:
             self.item = items.Apple()
             self.description = """ \nOlhas para a sala e vês uma maçã"""
         
-        elif r < 5:
+        elif r > 5:
             self.item = items.HealingPotion()
             self.description = """\nUma poção de vida, que maravilha"""
             
-        elif r <3:
+        elif r > 3:
             self.item = items.RustySword()
             self.description = """\nEncontras-te uma espada, vai-te dar bastante jeito"""
-        elif r < 2:
+        elif r > 2:
             self.item = items.Axe()
             self.description = "\nUm machado perdido, espectaculo!!"
         else:
@@ -245,17 +260,17 @@ class VictoryTile(MapTile):
         """
 
 world_dsl = """
-|  |  |LT|  |  |  |  |  |  |  |  |
-|  |  |TT|CT|EN|  |TT|  |  |  |  |
+|  |  |LT|  |  |  |DG|  |  |  |  |
+|  |TT|EF|CT|EN|  |TT|  |  |  |  |
 |  |  |  |  |CT|  |CT|  |  |  |FG|
 |  |EN|  |CT|FG|EN|HT|CT|EN|HT|EN|
-|  |TT|  |FG|  |  |CT|  |  |  |TT|
-|  |FG|EN|FG|HT|CT|EN|CT|  |  |EN|
+|  |TT|  |FG|  |  |  |CT|  |  |TT|
+|  |FG|EN|FG|HT|CT|EN|EF|  |  |EN|
 |  |  |FG|  |FG|  |  |FG|  |  |VT|
-|EN|  |EN|  |  |  |  |CT|TT|  |  |
-|CT|FG|CT|CT|  |  |CT|EN|CT|  |  |
-|EN|  |  |EN|EN|CT|CT|  |FG|  |  |
-|LT|  |  |  |IT|  |FG|  |  |  |  |
+|DG|  |EN|  |  |  |  |CT|TT|  |  |
+|CT|FG|HT|IT|  |  |TT|DF|CT|  |  |
+|EN|  |  |CT|EN|CT|HT|  |FG|  |  |
+|LT|  |  |  |CT|  |FG|  |  |  |  |
 |  |  |  |  |ST|  |  |  |  |  |  |
 """
 def is_dsl_valid(dsl):
@@ -281,6 +296,8 @@ tile_type_dict = {"VT": VictoryTile,
                   "IT": ItemTile,
                   "HT": HallTile,
                   "LT": LoseTile,
+                  "DF":CruzamentoDrtFrenteTile,
+                  "EF":CruzamentoEsqFrenteTile,
                   "  ": None}
             
 world_map = []
