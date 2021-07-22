@@ -136,7 +136,7 @@ class ItemTile(MapTile):
         else:
              self.description = """\nNão encontraste nada!!"""
             
-    def intro_text(self):
+    def intro_text(self,):
         if self.item_claimed:
             return """
                     Já apanhaste o item, não sejas ganante"""
@@ -151,6 +151,10 @@ class ItemTile(MapTile):
                 print("apanhaste {}".format(self.item)) 
             else:
                 print("Fica para a proxima")
+
+
+        
+    
 class TraderTile(MapTile):
     def __init__(self, x, y):
         self.trader = npc.Trader()
@@ -286,6 +290,7 @@ def is_dsl_valid(dsl):
             return False
     return True
 
+#Dicionario que abrevia os nomes das salas para ser mais legivel na grelha
 tile_type_dict = {"VT": VictoryTile,
                   "EN": EnemyTile,
                   "ST": StartTile,
@@ -342,7 +347,7 @@ def tile_at(x, y):
     if x < 0 or y < 0:         #Se alguma coordenada for negativa, a função não retorna nada. 
         return None            
     try:
-        return world_map[y][x] #Se as coordenadas forem validas, retorna a sala que está atribuida à mesma
+        return world_map[y][x] #Se as coordenadas forem validas, retorna a sala que está atribuida à mesma na grelha feita antes
     except IndexError:         #Se as coordenadas forem maiores que os valores do world_dsl, a função não retorna nada
         return None  
     
